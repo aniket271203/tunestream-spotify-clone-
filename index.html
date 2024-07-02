@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height" />
+    <meta name="description" content="" />
+    <title>Aniket's website</title>
+    <link rel="stylesheet" href="css/styles2.css" />
+    <link rel="stylesheet" href="css/utility.css" />
+  </head>
+  <body>
+    <div class="container flex bg-black">
+      <div class="left">
+        <div class="home rounded bg-grey m-1 p-1">
+          <div class="logo">
+            <img width="100" class="invert" src="img/spotify.svg" alt="spotify" />
+            <img class="invert close" src="img/close.svg" alt="close" />
+          </div>
+          <ul>
+            <li>
+              <img class="invert" src="img/home.svg" alt="home" />
+              Home
+            </li>
+            <li>
+              <img class="invert" src="img/search.svg" alt="search" />
+              Search
+            </li>
+          </ul>
+        </div>
+        <div class="library rounded bg-grey p-1 m-1">
+          <div class="heading items-center">
+            <img class="invert" src="img/library.svg" alt="library" />
+            <h2>Your Library</h2>
+          </div>
+
+          <div class="songlist">
+            <ul></ul>
+          </div>
+
+          <div class="footer bg-grey">
+            <a href="https://www.spotify.com/in-en/legal/">Legal</a>
+            <a href="https://www.spotify.com/in-en/safetyandprivacy/"
+              >Safety & Privacy</a
+            >
+            <a href="https://www.spotify.com/in-en/legal/privacy-policy/"
+              >Privacy Policy</a
+            >
+            <a href="https://www.spotify.com/in-en/legal/cookies-policy/"
+              >Cookies</a
+            >
+            <a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3"
+              >About Ads</a
+            >
+            <a href="https://www.spotify.com/in-en/accessibility/"
+              >Accessibility</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="right rounded bg-grey">
+        <div class="header">
+          <div class="navigation">
+            <img class="invert hamburger" src="img/hamburger.svg" alt="hamburger" />
+            <img class="invert" src="img/left.svg" alt="left" />
+            <img src="img/right.svg" alt="right" class="invert" />
+          </div>
+          <div class="buttons">
+            <button class="signupbtn">Sign up</button>
+            <button class="loginbtn">Log in</button>
+          </div>
+        </div>
+        <div class="topics">
+          <div class="spotifyPlaylist">
+            <h1>Spotify Playlists</h1>
+            <div class="cardContainer"></div>
+          </div>
+
+          <div class="spotifyPlaylist">
+            <h1>Spotify Playlists</h1>
+            <div class="cardContainer"></div>
+          </div>
+
+          <div class="spotifyPlaylist">
+            <h1>Spotify Playlists</h1>
+            <div class="cardContainer"></div>
+          </div>
+
+        </div>
+        <div class="playbar">
+          <div class="details">
+            <div class="songinfo"></div>
+            <div class="songbuttons">
+              <img id="prevButton" src="img/prev.svg" alt="Prev" />
+              <img id="playButton" src="img/play.svg" alt="Play" />
+              <img id="nextButton" src="img/next.svg" alt="Next" />
+            </div>
+            <div class="vol-timer">
+              <div class="volume">
+                <img id="volume" src="img/volume.svg" alt="volume" class="invert" />
+                <input
+                  type="range"
+                  style="writing-mode: vertical-lr; direction: rtl"
+                  class="volume-range"
+                />
+              </div>
+              <div class="songtimer"></div>
+            </div>
+          </div>
+          <div class="seek-container">
+            <div class="seekbar">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
