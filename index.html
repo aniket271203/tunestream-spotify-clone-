@@ -17,13 +17,17 @@
             <img class="invert close" src="img/close.svg" alt="close" />
           </div>
           <ul>
-            <li>
+            <li class="homeButton">
               <img class="invert" src="img/home.svg" alt="home" />
               Home
             </li>
-            <li>
-              <img class="invert" src="img/search.svg" alt="search" />
-              Search
+            <li class="searchButton ">
+              <div class="searchBar">
+                <input type="text" id="search-bar" placeholder="Search..." />
+                <button id="search-button"><img src="img/search.svg"/></button>
+              </div>
+              <img id="search" class="invert" src="img/search.svg" alt="search" />
+              <a>Search</a>
             </li>
           </ul>
         </div>
@@ -61,8 +65,8 @@
         <div class="header">
           <div class="navigation">
             <img class="invert hamburger" src="img/hamburger.svg" alt="hamburger" />
-            <img class="invert" src="img/left.svg" alt="left" />
-            <img src="img/right.svg" alt="right" class="invert" />
+            <img class="invert backward" src="img/left.svg" alt="left" />
+            <img class="invert forward" src="img/right.svg" alt="right" />
           </div>
           <div class="buttons">
             <button class="signupbtn">Sign up</button>
@@ -71,17 +75,17 @@
         </div>
         <div class="topics">
           <div class="spotifyPlaylist">
-            <h1>Spotify Playlists</h1>
+            <h1></h1>
             <div class="cardContainer"></div>
           </div>
 
           <div class="spotifyPlaylist">
-            <h1>Spotify Playlists</h1>
+            <h1></h1>
             <div class="cardContainer"></div>
           </div>
 
           <div class="spotifyPlaylist">
-            <h1>Spotify Playlists</h1>
+            <h1></h1>
             <div class="cardContainer"></div>
           </div>
 
