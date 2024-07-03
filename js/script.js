@@ -70,6 +70,7 @@ const playmusic = (songTitle,songsList,pause=false) => {
         }   
         document.querySelector('.songinfo').innerHTML=song.trackName;
         document.querySelector('.songtimer').innerHTML="00:00/00:00";
+        document.querySelector('.circle').style.left=0+'%';
     } 
 }
 
@@ -123,6 +124,7 @@ async function displayAlbums(folder,index){
         const e=array1[i];
         if (e.href.includes(`/songs/${folder}/`)){
             // console.log((e.href.split('/').slice(-1))[0]);
+            // let folder1=(e.href.split('/').slice(-2))[0];
             let folder1=(e.href.split('/').slice(-1))[0];
             console.log(folder1);
 
@@ -151,12 +153,13 @@ async function displayAlbums(folder,index){
     // update library based on playlist 
     Array.from(document.getElementsByClassName('cardContainer')[index].getElementsByClassName('card')).forEach(e=>{
         e.addEventListener('click', async item=>{
+            backward=current;
+            current="album";
             console.log(folder);
             await fetchLibraryData(`/songs/${folder}/${item.currentTarget.dataset.file}/${item.currentTarget.dataset.file}.json`);
             songslist= await getsongs(library);
             playmusic(songslist[0].trackName,songslist);
             update_library(songslist);
-            backward='album';
         })
     });
 }
@@ -257,8 +260,10 @@ async function main(){
 
     // // forward
     document.querySelector(".forward").addEventListener('click', ()=>{
-        backward=current;
-        current=forward;
+        if(forward!=current){
+            backward=current;
+            current=forward;
+        }
         if (forward==lastsearch){
             searchSongs(lastsearch);
         }
@@ -269,8 +274,10 @@ async function main(){
 
     // backward
     document.querySelector(".backward").addEventListener('click', ()=>{
-        forward=current;
-        current=backward;
+        if (backward!=current){
+            forward=current;
+            current=backward;
+        }
         if (backward==lastsearch){
             searchSongs(lastsearch);
         }
