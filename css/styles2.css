@@ -28,6 +28,51 @@ body {
   position: relative;
 }
 
+.homeButton{
+  cursor: pointer;
+}
+
+.searchButton{
+  cursor: pointer;
+}
+
+.searchBar {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+}
+
+#search-bar {
+  border: 1px solid #999;
+  border-radius: 20px;
+  height: 25px;
+  padding-left: 40px; 
+  font-size: 18px;
+  color: #666;
+  background-color: #f2f2f2;
+  transition: all 0.3s ease-in-out;
+  width: 280px;
+}
+
+#search-bar:focus {
+  border-color: #005ff9;
+  outline: #005ff9;
+}
+
+#search-button {
+  position: absolute;
+  left: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#search-button img {
+  width: 18px;
+  height: 18px;
+}
+
 .navigation {
   display: flex;
 }
@@ -39,6 +84,10 @@ body {
   padding-top: 14px;
   list-style: none;
   font-weight: bold;
+}
+
+.home ul li a{
+  display: block;
 }
 
 .heading {
@@ -85,6 +134,14 @@ body {
 .header > * {
   padding: 15px;
   /* gap: 1000px; */
+}
+
+.forward{
+  cursor: pointer;
+}
+
+.backward{
+  cursor: pointer;
 }
 
 .spotifyPlaylist {
@@ -240,6 +297,12 @@ body {
 .artist {
   padding-top: 4px;
   font-size: small;
+}
+
+.noResult{
+  font-size: x-large;
+  color: rgb(183, 36, 36);
+  padding: 10px;
 }
 
 .songlist ul li img {
