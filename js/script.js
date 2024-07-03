@@ -1,6 +1,6 @@
 let audio = new Audio();
 let songslist;
-
+let lastsearch;
 let library = [];  
 
 async function fetchLibraryData(filename) {
@@ -17,7 +17,7 @@ async function fetchLibraryData(filename) {
 }
 
 async function getsongs(songs){
-    let songslist=[]
+    let list=[]
 
     for(let i=0; i< songs.length;i++){  
         const searchTerm = `${songs[i].title} ${songs[i].artist}`;
@@ -42,7 +42,7 @@ async function getsongs(songs){
                     explicit : result.trackExplicitness,
                     duration: result.trackTimeMillis/60000
                 }
-                songslist.push(song);
+                list.push(song);
                 
             }
             else{
@@ -53,7 +53,7 @@ async function getsongs(songs){
             console.error("error fetching songs",error);
         }
     }
-    return songslist;
+    return list;
 }
 
 const playmusic = (songTitle,songsList,pause=false) => {
@@ -156,6 +156,7 @@ async function displayAlbums(folder,index){
             songslist= await getsongs(library);
             playmusic(songslist[0].trackName,songslist);
             update_library(songslist);
+            backward='album';
         })
     });
 }
@@ -167,6 +168,64 @@ async function display(){
     } 
 }
 
+async function searchSongs(searchTerm){
+    let result_songs=[];
+    var url = `https://itunes.apple.com/search?term=${encodeURIComponent(searchTerm)}&entity=song&limit=40`;
+        try{
+            const response = await fetch(url, {
+                credentials: 'omit' // Ensure no cookies are sent with the request
+            });
+            let data=await response.json();
+
+            if (data.results.length>0){
+                for (let i = 0; i < data.results.length && i < 40; i++) {
+                    const result=data.results[i];
+                    song={
+                        result : data.results[i],
+                        index : i,
+                        artistName : result.artistName,
+                        trackName : result.trackName,
+                        albumName : result.collectionName,
+                        artworkUrl : result.artworkUrl100,
+                        audioUrl : result.previewUrl,
+                        explicit : result.trackExplicitness,
+                        duration: result.trackTimeMillis/60000
+                    }
+                    result_songs.push(song);
+                }
+                console.log(result_songs);
+                update_library(result_songs);
+                
+            }
+            else{
+                console.log(`No results found for ${searchTerm}`);
+                let songUL=document.querySelector(".songlist").getElementsByTagName("ul")[0];
+                songUL.innerHTML='';
+                songUL.innerHTML=songUL.innerHTML+`<div class="noResult"> No results found for "${searchTerm}"<div>`;
+            }
+        }
+        catch(error){
+            console.error("error fetching songs",error);
+        }
+}
+
+async function home(){  
+    backward=current;
+    current="home";
+    await fetchLibraryData("/songs/library.json");
+    songslist= await getsongs(library);
+    playmusic(songslist[0].trackName,songslist,true);
+    update_library(songslist);
+    document.querySelector('.searchBar').style.display="none";
+    document.querySelector('.searchButton a').style.display = 'block';
+    document.querySelector('.library h2').innerHTML="Your Library";
+    search.style.display = 'flex';
+}
+
+let current='home';
+let backward='home';
+let forward='home';
+
 
 async function main(){ 
    
@@ -177,6 +236,48 @@ async function main(){
     
     update_library(songslist);
     display();
+
+    // search
+    document.querySelector('.searchButton').addEventListener('click',()=>{
+        document.querySelector('.searchBar').style.display="flex";
+        document.querySelector('.searchButton a').style.display = 'none';
+        search.style.display = 'none';
+    })
+    document.getElementById('search-button').addEventListener('click',()=>{
+        backward=current;
+        const searchInput = document.getElementById('search-bar');
+        current=`${searchInput.value}`;
+        lastsearch=searchInput.value;
+        document.querySelector('.library h2').innerHTML="Search Results";
+        searchSongs(searchInput.value);
+    })
+    document.querySelector('.homeButton').addEventListener('click', async ()=>{
+        home();
+    })
+
+    // // forward
+    document.querySelector(".forward").addEventListener('click', ()=>{
+        backward=current;
+        current=forward;
+        if (forward==lastsearch){
+            searchSongs(lastsearch);
+        }
+        else if (forward=='home'){
+            home();
+        }
+    })
+
+    // backward
+    document.querySelector(".backward").addEventListener('click', ()=>{
+        forward=current;
+        current=backward;
+        if (backward==lastsearch){
+            searchSongs(lastsearch);
+        }
+        else if (backward=='home'){
+            home();
+        }
+    })
 
     // playbar
     playButton.addEventListener('click', () => {
