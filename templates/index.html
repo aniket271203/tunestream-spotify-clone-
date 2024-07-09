@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, height=device-height"
+    />
+    <meta name="description" content="" />
+    <title>Aniket's website</title>
+    <link rel="stylesheet" href="../static/css/styles2.css" />
+    <link rel="stylesheet" href="../static/css/utility.css" />
+  </head>
+  <body>
+    <div class="container flex bg-black">
+      <div class="left">
+        <div class="home rounded bg-grey m-1 p-1">
+          <div class="logo">
+            <img
+              width="100"
+              class="invert"
+              src="../static/img/spotify.svg"
+              alt="spotify"
+            />
+            <img
+              class="invert close"
+              src="../static/img/close.svg"
+              alt="close"
+            />
+          </div>
+          <ul>
+            <li class="homeButton">
+              <img class="invert" src="../static/img/home.svg" alt="home" />
+              Home
+            </li>
+            <li class="searchButton">
+              <div class="searchBar">
+                <input type="text" id="search-bar" placeholder="Search..." />
+                <button id="search-button">
+                  <img src="../static/img/search.svg" />
+                </button>
+              </div>
+              <img
+                id="search"
+                class="invert"
+                src="../static/img/search.svg"
+                alt="search"
+              />
+              <a>Search</a>
+            </li>
+          </ul>
+        </div>
+        <div class="library rounded bg-grey p-1 m-1">
+          <div class="heading items-center">
+            <img class="invert" src="../static/img/library.svg" alt="library" />
+            <h2>Your Library</h2>
+          </div>
+
+          <div class="songlist">
+            <ul></ul>
+          </div>
+
+          <div class="footer bg-grey">
+            <a href="https://www.spotify.com/in-en/legal/">Legal</a>
+            <a href="https://www.spotify.com/in-en/safetyandprivacy/"
+              >Safety & Privacy</a
+            >
+            <a href="https://www.spotify.com/in-en/legal/privacy-policy/"
+              >Privacy Policy</a
+            >
+            <a href="https://www.spotify.com/in-en/legal/cookies-policy/"
+              >Cookies</a
+            >
+            <a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3"
+              >About Ads</a
+            >
+            <a href="https://www.spotify.com/in-en/accessibility/"
+              >Accessibility</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="right rounded bg-grey">
+        <div class="header">
+          <div class="navigation">
+            <img
+            class="invert hamburger"
+            src="../static/img/hamburger.svg"
+            alt="hamburger"
+            />
+            <img
+            class="invert backward"
+            src="../static/img/left.svg"
+            alt="left"
+            />
+            <img
+            class="invert forward"
+            src="../static/img/right.svg"
+            alt="right"
+            />
+          </div>
+          <div class="buttons">
+            {% if login_status==1 %}
+            <form action="/logout">
+              <button type="submit" class="logoutbtn">Log out</button>
+            </form>
+            {% else %}
+            <a href="/signup"><button class="signupbtn">Sign up</button></a>
+            <a href="/login_email_password"
+              ><button class="loginbtn">Log in</button></a
+            >
+            {% endif %}
+          </div>
+        </div>
+        <div class="topics">
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+            messages %}
+            <ul class="flashes">
+              {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+          <div class="spotifyPlaylist">
+            <h1></h1>
+            <div class="cardContainer"></div>
+          </div>
+          <div class="spotifyPlaylist">
+            <h1></h1>
+            <div class="cardContainer"></div>
+          </div>
+          <div class="spotifyPlaylist">
+            <h1></h1>
+            <div class="cardContainer"></div>
+          </div>
+          <div class="spotifyPlaylist">
+            <h1></h1>
+            <div class="cardContainer"></div>
+          </div>
+          {% if login_status==1 %}
+          <div class="spotifyPlaylist">
+            <h1>Playlists Made by You</h1>
+            <div class="cardContainer">
+              <div class="card">
+                <!-- Button to open the modal -->
+                <div class="addPlaylist" onclick="openModal()">
+                  <img
+                    class="invert"
+                    src="../static/img/addPlaylist.svg"
+                    alt="addPlaylist"
+                  />
+                </div>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <span class="close1" onclick="closeModal()">&times;</span>
+                    <form id="playlistForm" method="post" action="/addPlaylist">
+                      <label for="playlistName">Playlist Name:</label>
+                      <input
+                        type="text"
+                        id="playlistName"
+                        name="playlistName"
+                        required
+                      />
+                      <label for="playlistDescription">Playlist Description:</label>
+                      <input
+                        type="text"
+                        id="playlistDescription"
+                        name="playlistDescription"
+                        required
+                      />
+                      <button type="submit">Create Playlist</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="playbar">
+          <div class="details">
+            <div class="songinfo"></div>
+            <div class="songbuttons">
+              <img id="prevButton" src="../static/img/prev.svg" alt="Prev" />
+              <img id="playButton" src="../static/img/play.svg" alt="Play" />
+              <img id="nextButton" src="../static/img/next.svg" alt="Next" />
+            </div>
+            <div class="vol-timer">
+              <div class="volume">
+                <img
+                  id="volume"
+                  src="../static/img/volume.svg"
+                  alt="volume"
+                  class="invert"
+                />
+                <input
+                  type="range"
+                  style="writing-mode: vertical-lr; direction: rtl"
+                  class="volume-range"
+                />
+              </div>
+              <div class="songtimer"></div>
+            </div>
+          </div>
+          <div class="seek-container">
+            <div class="seekbar">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../static/js/script.js"></script>
+  </body>
+</html>
